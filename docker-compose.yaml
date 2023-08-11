@@ -1,0 +1,102 @@
+version: "3.7"
+
+services:
+  trento-web:
+    image: ghcr.io/trento-project/trento-web:demo
+    environment:
+      DATABASE_URL: ecto://dbUser:dbPassword@postgres/trento_web
+      EVENTSTORE_URL: ecto://dbUser:dbPassword@postgres/trento_event_store
+      AMQP_URL: amqp://rabbitUser:rabbitPassword@rabbitmq
+      
+      ENABLE_API_KEY: "false"
+      SECRET_KEY_BASE: s2ZdE+3+ke1USHEJ5O45KT364KiXPYaB9cJPdH3p60t8yT0nkLexLBNw8TFSzC7k
+      ACCESS_TOKEN_ENC_SECRET: dummyS3cr3t
+      REFRESH_TOKEN_ENC_SECRET: an0th3rDummyS3cr3t
+      # JWT_AUTHENTICATION_ENABLED: "false"
+
+      
+      ENABLE_ALERTING: "false"
+      # SMTP_SERVER: "{{ .Values.alerting.smtpServer }}"
+      # SMTP_PORT: "{{ .Values.alerting.smtpPort }}"
+      # SMTP_USER: "{{ .Values.alerting.smtpUser }}"
+      # SMTP_PASSWORD: "{{ .Values.alerting.smtpPassword }}"
+      # ALERT_SENDER: "{{ .Values.alerting.sender }}"
+      # ALERT_RECIPIENT: "{{ .Values.alerting.recipient }}"
+
+      GRAFANA_PUBLIC_URL: http://localhost:3000
+      GRAFANA_API_URL: http://grafana:3000/api
+      # PROMETHEUS_URL: http://localhost:9090
+      
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: adminpassword
+      CHECKS_SERVICE_BASE_URL: http://localhost:4001
+    depends_on:
+      - postgres
+      - rabbitmq
+      - grafana
+    ports:
+      - 4000:4000
+    # healthcheck:
+    #   test: curl -f http://localhost:4000/api/readyz || exit 1
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 5m
+    #   start_interval: 3m
+    entrypoint: ["/bin/sh", "-c", "/app/bin/trento eval \"Trento.Release.init()\" && /app/bin/trento start"]
+
+  wanda:
+    image: ghcr.io/trento-project/trento-wanda:demo
+    environment:
+      DATABASE_URL: ecto://dbUser:dbPassword@postgres/wanda
+      AMQP_URL: amqp://rabbitUser:rabbitPassword@rabbitmq
+      SECRET_KEY_BASE: s2ZdE+3+ke1USHEJ5O45KT364KiXPYaB9cJPdH3p60t8yT0nkLexLBNw8TFSzC7k
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: http://localhost:4000
+      CATALOG_PATH: /app/catalog
+      DEMO_FAKE_FACTS: /app/facts-gathering/fake_facts.yaml
+      # JWT_AUTHENTICATION_ENABLED: "false"
+      ACCESS_TOKEN_ENC_SECRET: dummyS3cr3t
+    depends_on:
+      - postgres
+      - rabbitmq
+    ports:
+      - 4001:4000
+    # healthcheck:
+    #   test: curl -f http://localhost:4001/api/readyz || exit 1
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 5m
+    #   start_interval: 3m
+    entrypoint: ["/bin/sh", "-c", "/app/bin/wanda eval \"Wanda.Release.init()\" && /app/bin/wanda start"]
+    volumes:
+      - ./data/catalog/:/app/catalog:rw
+      - ./data/facts-gathering/:/app/facts-gathering:rw
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: dbUser
+      POSTGRES_PASSWORD: dbPassword
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./docker/postgres/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  rabbitmq:
+    image: rabbitmq:3.10.5-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbitUser
+      RABBITMQ_DEFAULT_PASS: rabbitPassword
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      GF_SECURITY_ALLOW_EMBEDDING: "true"
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+    ports:
+      - 3000:3000
+
+volumes:
+  pg_data:

@@ -1,0 +1,6 @@
+/.tmp/
+/data/photofinish/*
+/data/photofinish/.photofinish.toml
+
+/data/catalog/*
+/data/facts-gathering/*
