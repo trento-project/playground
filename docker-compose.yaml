@@ -3,6 +3,7 @@ version: "3.7"
 services:
   trento-web:
     image: ghcr.io/trento-project/trento-web:demo
+    pull_policy: always
     environment:
       DATABASE_URL: ecto://dbUser:dbPassword@postgres/trento_web
       EVENTSTORE_URL: ecto://dbUser:dbPassword@postgres/trento_event_store
@@ -47,6 +48,7 @@ services:
 
   wanda:
     image: ghcr.io/trento-project/trento-wanda:demo
+    pull_policy: always
     environment:
       DATABASE_URL: ecto://dbUser:dbPassword@postgres/wanda
       AMQP_URL: amqp://rabbitUser:rabbitPassword@rabbitmq
@@ -76,6 +78,7 @@ services:
 
   postgres:
     image: postgres:latest
+    pull_policy: always
     environment:
       POSTGRES_USER: dbUser
       POSTGRES_PASSWORD: dbPassword
@@ -86,12 +89,14 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.10.5-management-alpine
+    pull_policy: always
     environment:
       RABBITMQ_DEFAULT_USER: rabbitUser
       RABBITMQ_DEFAULT_PASS: rabbitPassword
 
   grafana:
     image: grafana/grafana:latest
+    pull_policy: always
     environment:
       GF_SECURITY_ALLOW_EMBEDDING: "true"
       GF_AUTH_ANONYMOUS_ENABLED: "true"
