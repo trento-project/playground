@@ -18,6 +18,18 @@ Install [Docker Desktop](https://docs.docker.com/desktop/install/windows-install
 
 For other means of using make on windows, google will help: `install make on windows`
 
+## Usage
+
+1. clone the current repository
+2. enter in the directory
+3. run [commands](#commands)
+
+```bash
+$ git clone git@github.com:trento-project/playground.git
+$ cd playground
+$ make
+```
+
 ## Commands
 
 Run `make` or `make help` to see the list of available commands.
