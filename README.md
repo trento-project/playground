@@ -6,6 +6,18 @@ It targets whoever wants to try or showcase trento features, with the ability to
 
 PMs, POs, presales engineers, etc... 
 
+## Dependencies
+
+In order to leverage this playground make sure to have installed
+- `Docker`
+- `Docker Compose`
+- `make`
+
+### Windows users
+Install [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/) and/or leverage [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+For other means of using make on windows, google will help: `install make on windows`
+
 ## Commands
 
 Run `make` or `make help` to see the list of available commands.
