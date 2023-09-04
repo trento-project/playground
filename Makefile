@@ -24,14 +24,15 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
-init: clean
-	@mkdir .tmp/;
+init-web:
+	if [ ! -d ".tmp/web" ]; then \
+		git clone git@github.com:trento-project/web.git .tmp/web; \
+    fi
 
-init-web: clean-web
-	@git clone git@github.com:trento-project/web.git .tmp/web;
-
-init-wanda: clean-wanda
-	@git clone git@github.com:trento-project/wanda.git .tmp/wanda;
+init-wanda:
+	if [ ! -d ".tmp/wanda" ]; then \
+		git clone git@github.com:trento-project/wanda.git .tmp/wanda; \
+    fi
 
 clean-web:
 	rm -fr .tmp/web
@@ -54,21 +55,25 @@ clean: clean-scenarios clean-catalog clean-facts-gathering
 	rm -rf ./.tmp/
 
 ## Prepares photofinish scenarios
-get-scenarios: clean-scenarios init-web
-	@mv .tmp/web/.photofinish.toml ./data/photofinish/; \
-	mkdir -p ./data/photofinish/test/fixtures/scenarios/ && mv .tmp/web/test/fixtures/scenarios/* ./data/photofinish/test/fixtures/scenarios/; \
+get-scenarios: init-web
+	if [ ! -f "./data/photofinish/.photofinish.toml" ]; then \
+		cp .tmp/web/.photofinish.toml ./data/photofinish/; \
+    fi
+	if [ ! -d "./data/photofinish/test/fixtures/scenarios/" ]; then \
+		mkdir -p ./data/photofinish/test/fixtures/scenarios/ && cp -r .tmp/web/test/fixtures/scenarios/* ./data/photofinish/test/fixtures/scenarios/; \
+    fi
 
 ## Prepares Checks catalog
-get-catalog: clean-catalog init-wanda
-	@mv .tmp/wanda/priv/catalog/* ./data/catalog/;
+get-catalog: init-wanda
+	@cp -r .tmp/wanda/priv/catalog/* ./data/catalog/;
 
 ## Prepares fake facts configuration
-get-facts-config: clean-facts-gathering init-wanda
-	@mv .tmp/wanda/priv/demo/fake_facts.yaml ./data/facts-gathering/;
+get-facts-config: init-wanda
+	@cp .tmp/wanda/priv/demo/fake_facts.yaml ./data/facts-gathering/;
 
 ## Starts containers
 start: get-scenarios get-catalog get-facts-config
-	@docker compose up -d
+	@docker compose up
 
 ## Loads default photofinish scenario healthy-27-node-SAP-cluster
 load-default-scenario:
