@@ -16,8 +16,6 @@ In order to leverage this playground make sure to have installed
 ### Windows users
 Install [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/) and/or leverage [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install).
 
-For other means of using make on windows, google will help: `install make on windows`
-
 ## Usage
 
 1. clone the current repository
@@ -52,7 +50,7 @@ Available targets:
 
 ### Getting started
 
-Run `make start` to initialize the local environment.
+Run `make start` to initialize the local environment. 
 
 What this command does:
 - get photofinish scenarios
@@ -60,7 +58,11 @@ What this command does:
 - get a local copy of the fake facts configuration
 - start containers
 
-Hang tight and wait a good 5 minutes for everything to be ready...
+> Note that `start` keeps the terminal busy, so that when hitting `CTRL+C` the containers are shut down.
+> 
+> Open other terminal to run further commands.
+
+Hang tight and wait until everything is ready...
 
 When ready browse to http://localhost:4000 and log in with the following credentials: user `admin`, password `adminpassword`
 
