@@ -76,4 +76,4 @@ load-default-scenario:
 
 ## Loads a specific photofinish scenario by name. Usage: make load-scenario scenario=<scenario-name>
 load-scenario:
-	@cd ./data/photofinish/ && docker run -v ./:/data --network host ghcr.io/trento-project/photofinish run $(scenario) -u http://localhost:4000/api/collect
+	@cd ./data/photofinish/ && docker run -v $$(pwd):/data --network host ghcr.io/trento-project/photofinish run $(scenario) -u http://localhost:4000/api/collect
