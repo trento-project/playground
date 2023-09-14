@@ -66,6 +66,28 @@ Hang tight and wait until everything is ready...
 
 When ready browse to http://localhost:4000 and log in with the following credentials: user `admin`, password `adminpassword`
 
+### Environment variables
+
+It is possible to customize the playground by setting environment variables.
+
+Copy the `.env.dist` file to `.env` and edit it as per the specific needs.
+
+```bash
+$ cp .env.dist .env
+```
+
+See [.env.dist](./.env.dist) for a list of available variables.
+
+#### Changing the images tags
+
+By default `demo` images are used for weba nd wanda containers.
+Edit the `.env` file to use a different tag.
+
+```bash
+WEB_IMAGE_TAG=2.1.0 # a specific release tag
+WANDA_IMAGE_TAG=1790-env # a PR branch tag ${PR_NUMBER}-env
+```
+
 ### Loading photofinish scenarios
 
 Scenarios are loaded with [photofinish](https://github.com/trento-project/photofinish). 
