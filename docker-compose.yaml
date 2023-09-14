@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   trento-web:
-    image: ghcr.io/trento-project/trento-web:demo
+    image: ghcr.io/trento-project/trento-web:${WEB_IMAGE_TAG:-demo}
     pull_policy: always
     environment:
       DATABASE_URL: ecto://dbUser:dbPassword@postgres/trento_web
@@ -47,7 +47,7 @@ services:
     entrypoint: ["/bin/sh", "-c", "/app/bin/trento eval \"Trento.Release.init()\" && /app/bin/trento start"]
 
   wanda:
-    image: ghcr.io/trento-project/trento-wanda:demo
+    image: ghcr.io/trento-project/trento-wanda:${WANDA_IMAGE_TAG:-demo}
     pull_policy: always
     environment:
       DATABASE_URL: ecto://dbUser:dbPassword@postgres/wanda
