@@ -83,9 +83,11 @@ See [.env.dist](./.env.dist) for a list of available variables.
 By default `demo` images are used for weba nd wanda containers.
 Edit the `.env` file to use a different tag.
 
+Example
 ```bash
 WEB_IMAGE_TAG=2.1.0 # a specific release tag
-WANDA_IMAGE_TAG=1790-env # a PR branch tag ${PR_NUMBER}-env
+# WEB_IMAGE_TAG=1790-env # a PR branch tag ${PR_NUMBER}-env
+WANDA_IMAGE_TAG=rolling
 ```
 
 ### Loading photofinish scenarios
