@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  trento-web:
+    platform: linux/amd64
+
+  wanda:
+    platform: linux/amd64
