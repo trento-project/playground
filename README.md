@@ -16,6 +16,26 @@ In order to leverage this playground make sure to have installed
 ### Windows users
 Install [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/) and/or leverage [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install).
 
+### Mac users
+Playground allows to override the docker compose configuration to allow the explicit specification of the image platform for usage on Mac.
+
+Copy the `docker-compose.override.yaml.dist` file to `docker-compose.override.yaml`.
+
+```bash
+$ cp docker-compose.override.yaml.dist docker-compose.override.yaml
+```
+
+The default content of the compose override file already specifies `linux/amd64` as the platform for the `trento-web` and `wanda` services
+```yaml
+services:
+  trento-web:
+    platform: linux/amd64
+
+  wanda:
+    platform: linux/amd64
+```
+
+
 ## Usage
 
 1. clone the current repository

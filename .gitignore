@@ -6,3 +6,5 @@
 /data/facts-gathering/*
 
 /.env
+
+/docker-compose.override.yaml
