@@ -133,3 +133,10 @@ After the setup, also a configuration file useful to instrument what target agen
 Any changes to the file are reflected in the running instance.
 
 Please see [Wanda demo doc](https://github.com/trento-project/wanda/blob/main/guides/development/demo.md#modify-demo-facts-configuration) for extra information about the file format.
+
+### Alerting
+
+Trento sends email when something worth to be notified happens. 
+See [Alerting](https://github.com/trento-project/web/blob/main/guides/alerting/alerting.md).
+
+A local mailserver is available at [`localhost:8025`](http://localhost:8025) to inspect sent emails.

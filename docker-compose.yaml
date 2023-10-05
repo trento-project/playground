@@ -15,14 +15,13 @@ services:
       REFRESH_TOKEN_ENC_SECRET: an0th3rDummyS3cr3t
       # JWT_AUTHENTICATION_ENABLED: "false"
 
-      
-      ENABLE_ALERTING: "false"
-      # SMTP_SERVER: "{{ .Values.alerting.smtpServer }}"
-      # SMTP_PORT: "{{ .Values.alerting.smtpPort }}"
-      # SMTP_USER: "{{ .Values.alerting.smtpUser }}"
-      # SMTP_PASSWORD: "{{ .Values.alerting.smtpPassword }}"
-      # ALERT_SENDER: "{{ .Values.alerting.sender }}"
-      # ALERT_RECIPIENT: "{{ .Values.alerting.recipient }}"
+      ENABLE_ALERTING: "true"
+      SMTP_SERVER: mailserver
+      SMTP_PORT: 1025
+      SMTP_USER: ""
+      SMTP_PASSWORD: ""
+      ALERT_SENDER: "no-reply@trento-playground.com"
+      ALERT_RECIPIENT: "play@trento-playground.com"
 
       GRAFANA_PUBLIC_URL: http://localhost:3000
       GRAFANA_API_URL: http://grafana:3000/api
@@ -35,6 +34,7 @@ services:
       - postgres
       - rabbitmq
       - grafana
+      - mailserver
     ports:
       - 4000:4000
     # healthcheck:
@@ -102,6 +102,13 @@ services:
       GF_AUTH_ANONYMOUS_ENABLED: "true"
     ports:
       - 3000:3000
+  
+  mailserver:
+    image: mailhog/mailhog:v1.0.1
+    pull_policy: always
+    ports:
+      - 1025:1025
+      - 8025:8025
 
 volumes:
   pg_data:
