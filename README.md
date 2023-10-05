@@ -118,17 +118,17 @@ With containers up and ready, run `make load-default-scenario` to load the defau
 
 Run `make load-scenario scenario=<scenario-name>` to run any of the available scenarios. ie: `make load-scenario scenario=aws-landscape`
 
-Take a look at [./data/photofinish/.photofinish.toml](./data/photofinish/.photofinish.toml) for extra information about scenarios and scenarios names.
+Take a look at `./data/photofinish/.photofinish.toml` for extra information about scenarios and scenarios names.
 
 ### Catalog
 
-After the setup, the whole community catalog is available for experimentation in [./data/catalog/](./data/catalog/).
+After the setup, the whole community catalog is available for experimentation in `./data/catalog/`.
 
 Any changes to the existing checks, newly added checks or removed ones are reflected in the running instance.
 
 ### Facts Gathering
 
-After the setup, also a configuration file useful to instrument what target agents should return during facts gathering is available at [./data/facts-gathering/fake_facts.yaml](./data/facts-gathering/fake_facts.yaml).
+After the setup, also a configuration file useful to instrument what target agents should return during facts gathering is available at `./data/facts-gathering/fake_facts.yaml`.
 
 Any changes to the file are reflected in the running instance.
 
