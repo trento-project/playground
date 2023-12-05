@@ -26,13 +26,13 @@ help:
 
 init-web:
 	if [ ! -d ".tmp/web" ]; then \
-		git clone git@github.com:trento-project/web.git .tmp/web; \
-    fi
+		git clone https://github.com/trento-project/web.git .tmp/web; \
+	fi
 
 init-wanda:
 	if [ ! -d ".tmp/wanda" ]; then \
-		git clone git@github.com:trento-project/wanda.git .tmp/wanda; \
-    fi
+		git clone https://github.com/trento-project/wanda.git .tmp/wanda; \
+	fi
 
 clean-web:
 	rm -fr .tmp/web
