@@ -12,6 +12,7 @@ In order to leverage this playground make sure to have installed
 - `Docker`
 - `Docker Compose`
 - `make`
+- `git`
 
 ### Windows users
 Install [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/) and/or leverage [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install).
